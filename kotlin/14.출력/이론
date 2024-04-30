@@ -1,0 +1,13 @@
+문자열 출력 방법
+
+1. 문자열 직접 넣어줌
+println("hello")
+
+2. 변수를 출력
+println("hello $name")
+println("제 이름은 ${name}입니다.")
+println("hello " + name) - 문자열이 항상 앞에 와야 됨.
+-> println("" + name)
+
+3. 특수문자 출력
+- \특수문자 사용 -> println("\'hello\'") -> 'hello' 출력

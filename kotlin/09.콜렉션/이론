@@ -1,0 +1,59 @@
+콜렉션 - 크기 가변적.
+- 변경 가능 여부
+    - Mutable - 변경가능
+    - Immutable - 불변
+- 특징으로 분리
+    - 리스트
+        - Mutable, Immutable
+    - 셋
+        - Mutable, Immutable
+    - 맵
+        - Mutable, Immutable
+
+리스트
+    - Mutable
+        - mutableListOf<자료형>(값...)
+    - Immutable - 권장 -> 변경 여부를 확인할 필요가 없음.
+        - listOf<자료형>(값...)
+
+셋(집합) - 중복값이 없음.
+    - Mutable
+        - mutableSetOf<자료형>(값...)
+    - Immutable
+        - setOf<자료형>(값...)
+
+맵
+    - key-value 쌍 예){1=one, ...}
+    - Mutable
+        - mutableMapOf<자료형, 자료형>(키1 to 값1, ...)
+    - Immutable
+        - mapOf<자료형, 자료형>(키1 to 값1, ...)
+
+리스트 함수
+콜렉션명.get(인덱스) = 콜렉션[인덱스]
+콜렉션명.indexOf(값) : 값에 해당하는 첫 인덱스를 리턴
+콜렉션명.first() : 콜렉션의 첫번째 값 리턴
+콜렉션명.last() : 콜렉션의 마지막 값 리턴
+콜렉션명.add(값) : 값 추가
+콜렉션명.add(인덱스, 값) : 인덱스 위치에 값 추가
+콜렉션명.addAll(인덱스, 콜렉션) : 콜렉션 내용을 인덱스 번째에 추가
+콜렉션명.remove(값) : 앞선 값 하나 제거
+콜렉션명.removeAt(인덱스) : 인덱스 값 제거
+리스트명.size : 리스트 크기 리턴
+
+셋 함수
+셋명.contains(값) : 셋에 값이 있는지 리턴.
+셋명.containsAll(콜렉션) : 셋에 콜렉션 내용이 모두 있는지 리턴.
+셋명.add(값) : 값 추가
+셋명.remove(값) : 값 제거
+셋명.removeAll(콜렉션) : 콜렉션 내용을 셋에서 제거
+셋명.size : 셋 크기 리턴
+
+맵 함수
+맵명.keys : 키들 리턴
+맵명.values : 값들 리턴
+맵명.size : 맵 크기 리턴
+맵명.get(키) / 맵명[키] : 키의 값 리턴
+맵명.getOrDefault(키, 디폴트값) : 키의 값을 리턴하고, 키가 없으면 디폴트값 리턴.
+맵명.containsKey(키) : 키가 있는지 리턴
+맵명.containsValue(값) : 값이 있는지 리턴

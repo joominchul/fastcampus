@@ -1,0 +1,24 @@
+- if문
+if (조건){
+    동작
+}else if (조건){
+    동작
+}
+...
+else{
+    동작
+}
+간단 표현
+if (조건) 동작
+else 동작
+
+1줄 표현
+if (조건) 동작 else 동작
+예) val n = if (a>20) 10 else 30
+
+- when문
+when (조건을 검사할 값){
+    case1 -> 동작
+    case2 -> 동작
+    else -> 동작
+}

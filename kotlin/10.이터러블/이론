@@ -1,0 +1,13 @@
+Iterable
+- 아이터러블, 이터러블. 반복이 가능. 콜렉션의 근원.
+
+Progression
+- 범위가 있음.
+- 1..10 step n / 1.rangeTo(10) step n -> n만큼 움직임. 예) n=2일 때, 1, 3, 5...
+- 10 downTo 1 step 2 / (1..10).reversed() step 2 -> 10~1 2만큼 움직임.
+- 1 until 10 step 2 -> 1~9 2만큼 움직임.
+
+Range - 구간이 1인 Progression
+- 1..10 / 1.rangeTo(10) -> 1~10
+- 1 until 10 -> 1~9
+

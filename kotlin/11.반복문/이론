@@ -1,0 +1,40 @@
+for문.
+- for(변수명 in 범위){
+    내용
+}
+- for ((idx, i) in 콜렉션.withIndex()){ - 콜렉션의 인덱스와 값을 할당.
+      내용
+  }
+- for (idx in 콜렉션.indices){ - 콜렉션의 인덱스를 할당.
+      내용
+  }
+
+forEach
+- 콜렉션.forEach{
+    println(it) - it이라는 변수가 자동 할당됨.
+}
+- 콜렉션.forEach{ 변수명 ->
+      println(변수명) - it 대신 설정한 변수에 자동 할당.
+  }
+- 콜렉션.forEachIndexed{ index, i ->
+    println(index) - 인덱스와 값 할당
+    println(i)
+}
+
+while문.
+- while(조건){
+    내용
+}
+- do { - 일단 1번은 실행함.
+    내용
+}while(조건)
+
+키워드.
+- break : 반복문 탈출
+- continue : 반복문의 시작점으로 탈출
+- return : 함수를 탈출
+- label : 위 키워드들의 탈출 지점을 정해준다.
+    - 라벨로 설정할 수 있어야 하고, 설정한 라벨을 명시할 수 있어야 함.
+    - 라벨명@반복문 / 키워드@라벨명
+    - forEach는 forEach@반복문 { 임. 추가로 break와 컨티뉴를 사용할 수 없음. 리턴만 사용 가능.
+        -기본적으로 @forEach로 라벨링 되어 있음.
