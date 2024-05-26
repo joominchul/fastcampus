@@ -2,14 +2,10 @@ package com.example.fastcampus
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 
-class MainActivity : AppCompatActivity() {
+class Application2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
-
+        setContentView(R.layout.activity_application2)
     }
-
-
 }

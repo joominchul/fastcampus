@@ -1,5 +1,5 @@
 var numbers = mutableListOf<Int>(1,2)
-numbers[0] = 2
+numbers[0] +=1
 println(numbers)
 numbers = mutableListOf<Int>(1,2,3,2)
 numbers.add(0,100)

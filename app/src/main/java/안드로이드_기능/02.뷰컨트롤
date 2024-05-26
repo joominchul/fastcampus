@@ -1,0 +1,30 @@
+뷰 컨트롤
+- 사용자와의 상호작용으로 뷰를 조작.
+    - 이벤트 발생 시 처리 방법.
+- xml에 존재하는 뷰를 액티비티로 가져오는 방법
+    - findViewById : 액티비티로 뷰를 가져옴.
+        - ID : xml id
+    - databinding
+        - 뷰와 데이터를 묶는다.
+- 리스너 : 이벤트 수신 역할.
+    - setOnClickListener : 클릭 시 동작 설정
+        - 풀버전
+        val click = object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                Log.d("textt", "click1")
+                //클릭 시 동작 설정
+            }
+        }
+        textViewOne.setOnClickListener(click)
+
+        - 익명함수 버전
+        textViewOne.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(v: View?) {
+                Log.d("textt", "click2")
+            }
+        })
+
+        - 람다 버전
+        buttonOne.setOnClickListener {
+            Log.d("textt", "click")
+        }

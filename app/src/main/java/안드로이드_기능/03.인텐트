@@ -1,0 +1,141 @@
+Intent
+- 의도, 의사
+- 다른 앱이나 액티비티를 호출
+- 결과가 필요한 경우, 필요하지 않는 경우가 있음.
+- 데이터를 같이 전달할 수 있음
+
+
+
+종류
+- 명시적(Explicit) 인텐트
+    - 호출될 대상 명시
+    - 2가지 방법
+    val explicit:TextView = findViewById(R.id.explicit)
+    explicit.setOnClickListener {
+        val intent:Intent = Intent()
+        val componentName:ComponentName = ComponentName(
+            "com.example.fastcampus", //패키지 명
+            "com.example.fastcampus.intent2" //호출할 액티비티
+        )
+        intent.component = componentName
+        startActivity(intent)
+    }
+
+    (findViewById<TextView>(R.id.explicit)).apply {
+        this.setOnClickListener {
+            startActivity(
+                Intent(this@intent1, intent2::class.java) //컨텍스트, 호출할 액티비티
+            )
+        }
+    }
+    - 명시적 + 데이터 : 키-값 쌍을 보냄.
+        보내는 액티비티
+        (findViewById<TextView>(R.id.explicitData)).apply {
+            this.setOnClickListener {
+                val intent = Intent(this@intent1, intent2::class.java)
+                intent.putExtra("extra-data", "data-one") // 키, 값
+                startActivity(intent)
+            }
+        }        // 위 코드에서 Intent().putExtra()로 해도 됨.
+
+        호출된 액티비티
+        val intent = intent //액티비티를 호출한 액티비티의 인텐트.
+        val data:String? = intent.extras?.getString("extra-data") 값 타입에 맞게 설정하면 됨.
+        if (data != null) Log.d("extra", data)  //보내진 데이터 확인 코드
+    - 명시적 + 이미지(uri) 받기
+        보내는 액티비티
+        (findViewById<TextView>(R.id.explicitAction)).apply {
+            this.setOnClickListener {
+                val intent = Intent(this@intent1, intent2::class.java).apply { //보내는 액티비티 컨텍스트, 받는 액티비티
+                    val imageUri = Uri.parse(//이미지 주소(패키지 안 drawable 안 이미지)
+                        "android.resource://" + packageName + "/drawable/"+"youtube_logo")
+                    this.action = Intent.ACTION_SEND
+                    this.putExtra(Intent.EXTRA_STREAM, imageUri)
+                    this.setType("image/*")
+                }
+                startActivity(intent)
+            }
+        }
+        호출된(받는) 액티비티
+        val imageView = findViewById<ImageView>(R.id.image)
+        val uri = Uri.parse(
+            intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM).toString()
+        )
+        imageView.setImageURI(uri)
+    - 명시적 + 결과 받기
+        - 2가지 방법
+        - 1. startActivityForResult, onActivityResult 함수 사용
+        보내는 액티비티
+        // requestCode - 호출된 액티비티에서 보낸 인텐트를 구분하기 위해서. 보통 상수로 표현.
+        (findViewById<TextView>(R.id.explicitResult)).apply {
+            this.setOnClickListener {
+                val intent = Intent(this@intent1, intent2::class.java)
+                startActivityForResult(intent,1) //deprecated 지원 안 함.
+
+            }
+        }
+        // 호출한 액티비티에서 보낸 결과를 받는 함수
+        // 모든 인텐트가 이 함수에서 처리됨 -> 리퀘스트 코드로 구분 필요
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode){
+            1 -> {
+                when (resultCode){
+                    RESULT_OK -> {
+                        //데이터 받음. 보낸 결과의 타입에 따라 다름.
+                        val data:Int? = data?.extras?.getInt("result")
+                        Log.d("dataa", data.toString())
+                    }
+                }
+            }
+            2 -> {
+
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+        호출된 액티비티
+        (findViewById<TextView>(R.id.finish)).apply {
+            this.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("result", 100)
+                setResult(RESULT_OK, intent)
+                finish()//액티비티를 종료해서 원래 액티비티로 돌아감.
+            }
+        }
+        - 2. ActivityResult API 사용. 리퀘스트코드가 존재하지 않음.
+        -> 각각의 인텐트가 처리되는 곳이 별도로 있어 코드 없이도 요청자 구분 가능.
+        보내는 액티비티
+        //명시적 + 결과 받기, 액티비티리절트 api 사용
+        val startActivityLauncher: ActivityResultLauncher<Intent> =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+                //onActivityResult 함수 내용에 해당하는 부분
+                when(it.resultCode){
+                    RESULT_OK->{
+                        Log.d("databb", it.data?.extras?.getInt("result").toString())
+                    }
+                }
+        }
+        (findViewById<TextView>(R.id.explicitResult1)).apply {
+            this.setOnClickListener {
+                val intent = Intent(this@intent1, intent2::class.java)
+                startActivityLauncher.launch(intent)
+            }
+        }
+        호출된 액티비티 코드는 위와 같음.
+
+- 암시적(Implicit) 인텐트
+    - 호출될 대상 명시하지 않음.
+        - 전화, 구글맵 등등..
+    - 데이터(URI)를 같이 전달 가능.
+        - URI : 자원을 나타내는 고유한 주소
+    - 인텐트 필터(Intent-filter)
+        - 암시적 인텐트를 보낸 경우, 인텐트가 자신이 처리할 수 있는지 확인할 때 사용.
+    val intent: Intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-1111-1112"))
+    startActivity(intent)
+
+호출 대상
+- 앱 내
+    - 액티비티 간
+- 외부(안드로이드, 시스템)
+    - 앱 간(권한 필요)
+

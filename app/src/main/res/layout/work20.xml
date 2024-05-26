@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--9개의 텍스트뷰를 가운데에 바둑판 형식으로 배치-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/center"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/purple_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <TextView
+        android:id="@+id/left"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/purple_500"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintRight_toLeftOf="@id/center"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/right"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/purple_500"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintStart_toEndOf="@+id/center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        />
+
+    <TextView
+        android:id="@+id/up"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/purple_500"
+
+        app:layout_constraintBottom_toTopOf="@+id/center"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+         />
+
+    <TextView
+        android:id="@+id/down"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/purple_500"
+
+        app:layout_constraintTop_toBottomOf="@+id/center"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/purple_200"
+        app:layout_constraintBottom_toTopOf="@+id/center"
+        app:layout_constraintRight_toLeftOf="@+id/center"
+
+        />
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/purple_200"
+        app:layout_constraintBottom_toTopOf="@id/right"
+        app:layout_constraintLeft_toRightOf="@+id/up"
+        />
+    <TextView
+        android:layout_width="50dp"
+        app:layout_constraintRight_toLeftOf="@+id/down"
+        android:layout_height="50dp"
+        android:background="@color/purple_200"
+        app:layout_constraintTop_toBottomOf="@+id/left"
+        />
+    <TextView
+        android:layout_width="50dp"
+        app:layout_constraintLeft_toRightOf="@+id/down"
+        android:layout_height="50dp"
+        android:background="@color/purple_200"
+        app:layout_constraintTop_toBottomOf="@+id/right"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

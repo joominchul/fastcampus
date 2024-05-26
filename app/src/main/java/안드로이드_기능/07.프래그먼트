@@ -1,0 +1,133 @@
+Fragment
+- 프래그먼트액티비티 내의 어떤 동작 또는 사용자 인터페이스의 일부를 나타낸다.
+- 여러 개의 프래그먼트를 하나의 액티비티에 결합하여 창이 여러 개인 UI를 빌드할 수 있으며, 하나의 프라그먼트를 여러 액티비티에서 재사용 할 수 있다.
+    - > 다른 액티비티에 재사용할 수 있는 하위 액티비티 같은 개념.
+    - > 유지보수가 쉬워짐
+- 액티비티의 모듈식 섹션이라고 생각하면 됨.
+- 자체 입력 이벤트를 수신.
+
+생명 주기
+- 자체적인 수명 주기를 가짐.
+    - 호스트 액티비티(프래그먼트 액티비티)의 수명 주기에 직접적으로 영향을 받음.
+    - 종속적. -> 액티비티 주기가 바뀌면 프래그먼트 주기도 바뀜.
+- onAttach
+    - 프래그먼트가 액티비티와 연결되어 있는 경우 호출됨.
+    - 액티비티 전달.
+- onCreate
+    - 프래그먼트를 생성할 때 시스템에서 호출.
+    - 초기화 작업 필요
+- onCreateView
+    - 프래그먼트가 자신의 인터페이스를 처음으로 그릴 시간이 되면 호출됨.
+    - 뷰를 반환.
+    - UI를 제공하지 않는 경우에는 널 반환
+- onPause
+    - 사용자가 프래그먼트를 떠난다는 것을 나타내는 첫번째 신호
+    - 변경사항을 저장하면 좋음.
+- onDetach
+    - 프래그먼트가 액티비티와 연결이 끊어지는 중일 때 호출됨.
+
+생성 방법
+- xml
+프래그먼트 생성
+class Fragment1:Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater, //xml을 화면에 사용할 준비를 함. -> 뷰로 만듬
+        container: ViewGroup?, //프라그먼트에서 사용될 xml의 부모뷰
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(
+            R.layout.first_fragment, container, false
+        ) //(프래그먼트 xml, 부모 뷰, 루트 뷰에 언제 붙을지(트루:바로, 펄스: 때가 되면))
+
+    }
+}
+메인 액티비티 xml 내 프래그먼트 뷰
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/fragment_first"
+        android:name="com.example.fastcampus.Fragment1"
+        tools:layout="@layout/first_fragment"/>
+    - 액티비티에서 프래그먼트로 접근
+    val fragmentFirst = supportFragmentManager.findFragmentById(R.id.fragment_first) as Fragment1
+    fragmentFirst.printTestLog1()
+
+- 코드
+    - Transaction
+        - 작업의 단위. 시작과 끝이 있어야 함.
+            - commit : 끝. 상태 저장
+            (onSaveInstanceState, onStop, 생명 주기, 안드로이드에 의해 앱이 상태를 저장해야 할 수도 있다.)을
+            한 경우 실행할 수 없다. 실행하려 하면 IllegalStateException 발생.
+            메인 쓰레드에 작업 예약
+            - commitAllowingStateLoss : 상태 손실 허락.
+                -> 상태 저장을 한 경우 예외가 발생하지 않고 손실
+            - commitNow : 바로 실행.
+            - commitNowAllowingStateLoss : 상태 손실 허락하고 바로 실행.
+메인 액티비티 xml 내 루트 부모 뷰를 만듬
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/root">
+메인 액티비티
+        val fragmentManager = supportFragmentManager
+        val fragment1 = Fragment1()
+
+        (findViewById<TextView>(R.id.attach)).setOnClickListener {
+            val transaction = fragmentManager.beginTransaction() //시작
+            transaction.replace(R.id.root, fragment1) //루트 부모 뷰를 프래그먼트 뷰로 대체
+            transaction.commit() //끝
+
+        }
+
+        (findViewById<TextView>(R.id.detach)).setOnClickListener {
+            val transaction = fragmentManager.beginTransaction() //시작
+            transaction.remove(fragment1) //프래그먼트 뷰 없앰
+            transaction.commit() //끝
+        }
+    - 데이터 전달 가능
+메인 액티비티
+        (findViewById<TextView>(R.id.attach)).setOnClickListener {
+            val transaction = fragmentManager.beginTransaction() //시작
+            //프래그먼트에 데이터를 전달
+            val bundle = Bundle()
+            bundle.putString("key", "hello") //번들에 키와 값을 삽입
+            fragment1.arguments = bundle
+
+            transaction.replace(R.id.root, fragment1)
+            transaction.commit() //끝
+
+        }
+프래그먼트
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val data:String? = arguments?.getString("key")
+        Log.d("tesst", "data : " + data)
+    }
+    - 프래그먼트에서 액티비티로 접근
+        override fun onCreateView(
+            inflater: LayoutInflater, //xml을 화면에 사용할 준비를 함. -> 뷰로 만듬
+            container: ViewGroup?, //프라그먼트에서 사용될 xml의 부모뷰
+            savedInstanceState: Bundle?
+        ): View? {
+            val view = inflater.inflate(
+                R.layout.first_fragment, container, false
+            ) //(프래그먼트 xml, 부모 뷰, 루트 뷰에 언제 붙을지(트루:바로, 펄스: 때가 되면))
+            view.findViewById<TextView>(R.id.fragment_first).setOnClickListener {
+                (activity as com.example.fastcampus.Fragment).printTestLog()
+            }//(activity as 메인 액티비티).액티비티 내 함수
+            return view
+        }
+    - 액티비티에서 프래그먼트로 접근 : 프래그먼트를 붙힌 후 접근해야 함
+            (findViewById<TextView>(R.id.attach)).setOnClickListener {
+                val transaction = fragmentManager.beginTransaction() //시작
+                //프래그먼트에 데이터를 전달
+                val bundle = Bundle()
+                bundle.putString("key", "hello")
+                fragment1.arguments = bundle
+
+                transaction.replace(R.id.root, fragment1, "fragment_tag") // 태그 생성
+                transaction.commit() //끝
+
+            }
+    val fragmentSecond = supportFragmentManager.findFragmentByTag("fragment_tag") as Fragment1
+    fragmentSecond.printTestLog1()

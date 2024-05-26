@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:src="@drawable/sandwich_bg_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+
+        android:scaleType="fitXY"/>
+    
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/facebook"
+        android:layout_width="230dp"
+        android:layout_height="40dp"
+        android:background="@drawable/facebook"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subway"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        >
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="21dp"
+            android:src="@drawable/logo_fb2"/>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="페이스북 계정으로 로그인"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/kakao"
+        android:layout_width="230dp"
+        android:layout_height="40dp"
+        android:background="@drawable/kakao"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/facebook"
+
+        >
+    <ImageView
+        android:layout_width="12dp"
+        android:layout_height="21dp"
+        android:src="@drawable/logo_kt"/>
+    <TextView
+        android:layout_width="1dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="19dp"
+        android:background="@color/white"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="카카오 계정으로 로그인"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        android:textStyle="bold"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kakao"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:src="@drawable/arrows"
+            android:layout_marginRight="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입 건너뛰고 레시피 확인하기"
+            android:background="@color/white"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+    <ImageView
+        android:id="@+id/subway"
+        android:layout_width="230dp"
+        android:layout_height="40dp"
+        android:src="@drawable/page_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="200dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

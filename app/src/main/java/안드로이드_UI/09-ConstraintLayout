@@ -1,0 +1,33 @@
+ConstraintLayout
+- 제약을 통해서 뷰를 배치하는 컨테이너 뷰.
+- RelativeLayout에서 할 수 있는 모든 것이 가능.
+- 반대 방향으로 작용하는 2개의 제약을 동시에 적용하면 두 제약의 가운데에 배치됨.
+
+기능
+- 상대적 위치 배치(RelativeLayout 기능)
+    - layout_constraint + 제약 이름 = "id / parent"
+        - 예) layout_constraintLeft_toRightOf : 뷰의 왼쪽을 기준의 오른쪽에 맞춤
+- 여백
+    - 여백을 두기 위해서는 반드시 두고자 하는 방향에 제약이 있어야 된다.
+- 바이어스(Bias, 치우침)
+    - layout_constraintHorizontal_bias = 값
+    - layout_constraintVertical_bias = 값
+    - 값
+        - 비율로 설정
+        - 1인 경우 100%
+        - 0.5인 경우 50% -> 변화 없음. -> 가운데 위치
+- 비율로 설정(LinearLayout Weight 기능)
+    - layout_constraintHorizontal_weight = 값
+    - layout_constraintVertical_weight = 값
+- 원형 위치 설정(Circular Positioning)
+    - layout_constraintCircle : 기준을 정함
+    - layout_constraintCircleRadius : 두 중심 간의 거리
+    - layout_constraintCircleAngle : 각도
+- chainStyle 속성 : 여러 위젯 배치 스타일
+    - Spread : 균등(기본값)
+    - Spread Inside : 양 끝으로
+    - Packed : 붙힘.
+
+언어의 특징
+- LTR(left to right) : 글자를 적는 방향이 왼쪽에서 오른쪽 -> start = left end = right
+- RTL(right to left) : 글자를 적는 방향이 오른쪽에서 왼쪽 -> start = right end = left
